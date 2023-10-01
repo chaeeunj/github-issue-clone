@@ -9,7 +9,7 @@
 .wrapper:last-child {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  background: rgb(246, 248, 250);
+  /* background: rgb(246, 248, 250); */
 }
 
 .wrapper:hover {

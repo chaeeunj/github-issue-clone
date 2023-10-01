@@ -1,4 +1,6 @@
+import cx from 'clsx';
 import styles from './ListContainer.module.css';
+
 import Button from './Button';
 import ListItem from './ListItem';
 import ListItemLayout from './ListItemLayout';
@@ -7,6 +9,11 @@ import { useState } from 'react';
 
 function ListContainer() {
   const [inputValue, setInputValue] = useState('is:pr is:open');
+  const [isOpenMode, setIsOpenMode] = useState(true);
+
+  const openModeDataSize = 1;
+  const closeModeDataSize = 2;
+
   return (
     <div className={styles.listContainer}>
       <div className={styles.topSection}>
@@ -24,6 +31,20 @@ function ListContainer() {
           New Issue
         </Button>
       </div>
+      <>
+        <OpenClosedFilter
+          size={openModeDataSize}
+          state={'Open'}
+          selected={isOpenMode}
+          onClick={() => setIsOpenMode(true)}
+        />
+        <OpenClosedFilter
+          size={closeModeDataSize}
+          state={'Closed'}
+          selected={!isOpenMode}
+          onClick={() => setIsOpenMode(false)}
+        />
+      </>
       <ListItemLayout className={styles.listFilter}>
         <div className={styles.filterList}>
           <span>Author</span>
@@ -45,6 +66,17 @@ function ListContainer() {
         />
       </div>
     </div>
+  );
+}
+
+function OpenClosedFilter({ size, state, onClick, selected }) {
+  return (
+    <span
+      role="button"
+      className={cx(styles.textFilter, { [styles.selected]: selected })}
+      onClick={onClick}>
+      {size} {state}
+    </span>
   );
 }
 
