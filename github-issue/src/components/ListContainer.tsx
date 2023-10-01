@@ -9,10 +9,6 @@ import { useState } from 'react';
 
 function ListContainer() {
   const [inputValue, setInputValue] = useState('is:pr is:open');
-  const [isOpenMode, setIsOpenMode] = useState(true);
-
-  const openModeDataSize = 1;
-  const closeModeDataSize = 2;
 
   return (
     <div className={styles.listContainer}>
@@ -31,20 +27,7 @@ function ListContainer() {
           New Issue
         </Button>
       </div>
-      <>
-        <OpenClosedFilter
-          size={openModeDataSize}
-          state={'Open'}
-          selected={isOpenMode}
-          onClick={() => setIsOpenMode(true)}
-        />
-        <OpenClosedFilter
-          size={closeModeDataSize}
-          state={'Closed'}
-          selected={!isOpenMode}
-          onClick={() => setIsOpenMode(false)}
-        />
-      </>
+      <OpenClosedFilters />
       <ListItemLayout className={styles.listFilter}>
         <div className={styles.filterList}>
           <span>Author</span>
@@ -66,6 +49,32 @@ function ListContainer() {
         />
       </div>
     </div>
+  );
+}
+
+function OpenClosedFilters({ data }) {
+  const [isOpenMode, setIsOpenMode] = useState(true);
+  // const data = getData();
+  // const openData = data.filter((d) => d.state === 'open');
+  // const closedData = data.filter((d) => d.state === 'closed');
+  const openModeDataSize = 1;
+  const closeModeDataSize = 2;
+
+  return (
+    <>
+      <OpenClosedFilter
+        size={openModeDataSize}
+        state={'Open'}
+        selected={isOpenMode}
+        onClick={() => setIsOpenMode(true)}
+      />
+      <OpenClosedFilter
+        size={closeModeDataSize}
+        state={'Closed'}
+        selected={!isOpenMode}
+        onClick={() => setIsOpenMode(false)}
+      />
+    </>
   );
 }
 
