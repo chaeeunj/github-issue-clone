@@ -4,6 +4,7 @@ import styles from './ListContainer.module.css';
 import Button from './Button';
 import ListItem from './ListItem';
 import ListItemLayout from './ListItemLayout';
+import Modal from './Modal';
 
 import { useState } from 'react';
 
@@ -46,15 +47,22 @@ function ListContainer() {
 }
 
 function ListFilter() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <div className={styles.filterList}>
-      <ListFilterItem>Author</ListFilterItem>
-      <ListFilterItem>Label</ListFilterItem>
-      <ListFilterItem>Projects</ListFilterItem>
-      <ListFilterItem>MileStones</ListFilterItem>
-      <ListFilterItem>Assignee</ListFilterItem>
-      <ListFilterItem>Sort</ListFilterItem>
-    </div>
+    <>
+      <div className={styles.filterList}>
+        <ListFilterItem onClick={() => setShowModal(true)}>
+          Author
+        </ListFilterItem>
+        <ListFilterItem>Label</ListFilterItem>
+        <ListFilterItem>Projects</ListFilterItem>
+        <ListFilterItem>MileStones</ListFilterItem>
+        <ListFilterItem>Assignee</ListFilterItem>
+        <ListFilterItem>Sort</ListFilterItem>
+      </div>
+      <Modal opened={showModal} onClose={() => setShowModal(false)} />
+    </>
   );
 }
 
