@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 function ListContainer() {
   const [inputValue, setInputValue] = useState('is:pr is:open');
+  const [list, setList] = useState([]);
 
   return (
     <div className={styles.listContainer}>
@@ -30,23 +31,30 @@ function ListContainer() {
       </div>
       <OpenClosedFilters />
       <ListItemLayout className={styles.listFilter}>
-        <ListFilter />
+        <ListFilter
+          onChangeFilter={(filteredData) => {
+            // 필터링된 요소에 맞게 데이터 불러오기
+          }}
+        />
       </ListItemLayout>
       <div className={styles.container}>
-        <ListItem
-          badges={[
-            {
-              color: 'red',
-              title: 'Bug',
-            },
-          ]}
-        />
+        {list.map((listItem, index) => (
+          <ListItem
+            key={index}
+            badges={[
+              {
+                color: 'red',
+                title: 'Bug',
+              },
+            ]}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
-function ListFilter() {
+function ListFilter({ onChangeFilter }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -65,6 +73,11 @@ function ListFilter() {
         opened={showModal}
         onClose={() => setShowModal(false)}
         placeholder={'Filter labels'}
+        searchDataList={['bug', 'Labels', 'Apple']}
+        onClickCell={() => {
+          // 클릭된 정보를 통해 리스트 필터링
+          onChangeFilter();
+        }}
       />
     </>
   );
